@@ -22,11 +22,11 @@ model User {
 model Task {
   id          String    @id @default(uuid())
   title       String
-  description String
+  description String?
   completed   Boolean   @default(false)
   createdAt   DateTime  @default(now())
   dueAt       DateTime?
-  priority    Int       @default(0)
+  priority    Int?      @default(0)
   tags        String[]
   subtasks    Subtask[]
   userId      String
@@ -36,7 +36,7 @@ model Task {
 model Subtask {
   id          String   @id @default(uuid())
   title       String
-  description String
+  description String?
   completed   Boolean  @default(false)
   createdAt   DateTime @default(now())
   taskId      String
