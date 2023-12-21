@@ -12,16 +12,16 @@ import { User as UserModel } from '@prisma/client';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
-  async getUser(
-    // Gets User By ID Or Email
-    @Body() userData: { id: string; email: string },
-  ): Promise<UserModel> {
-    return this.userService.user({
-      id: userData.id,
-      email: userData.email,
-    });
-  }
+  // @Get()
+  // async getUser(
+  //   // Gets User By ID Or Email
+  //   @Body() userData: { id: string; email: string },
+  // ): Promise<UserModel> {
+  //   return this.userService.user({
+  //     id: userData.id,
+  //     email: userData.email,
+  //   });
+  // }
   @Post('create')
   async createUser(
     // Create New User With Name And Email

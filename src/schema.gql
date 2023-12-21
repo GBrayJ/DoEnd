@@ -1,0 +1,398 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input NestedStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NestedStringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+type Query {
+  user(where: UserWhereUniqueInput!): User!
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableListFilter {
+  equals: [String!]
+  has: String
+  hasEvery: [String!]
+  hasSome: [String!]
+  isEmpty: Boolean
+}
+
+type Subtask {
+  completed: Boolean!
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  task: Task!
+  taskId: String!
+  title: String!
+}
+
+input SubtaskCreateManyTaskInput {
+  completed: Boolean
+  createdAt: DateTime
+  description: String
+  id: String
+  title: String!
+}
+
+input SubtaskCreateManyTaskInputEnvelope {
+  data: [SubtaskCreateManyTaskInput!]!
+  skipDuplicates: Boolean
+}
+
+input SubtaskCreateNestedManyWithoutTaskInput {
+  connect: [SubtaskWhereUniqueInput!]
+  connectOrCreate: [SubtaskCreateOrConnectWithoutTaskInput!]
+  create: [SubtaskCreateWithoutTaskInput!]
+  createMany: SubtaskCreateManyTaskInputEnvelope
+}
+
+input SubtaskCreateOrConnectWithoutTaskInput {
+  create: SubtaskCreateWithoutTaskInput!
+  where: SubtaskWhereUniqueInput!
+}
+
+input SubtaskCreateWithoutTaskInput {
+  completed: Boolean
+  createdAt: DateTime
+  description: String
+  id: String
+  title: String!
+}
+
+input SubtaskListRelationFilter {
+  every: SubtaskWhereInput
+  none: SubtaskWhereInput
+  some: SubtaskWhereInput
+}
+
+input SubtaskWhereInput {
+  AND: [SubtaskWhereInput!]
+  NOT: [SubtaskWhereInput!]
+  OR: [SubtaskWhereInput!]
+  completed: BoolFilter
+  createdAt: DateTimeFilter
+  description: StringNullableFilter
+  id: StringFilter
+  task: TaskRelationFilter
+  taskId: StringFilter
+  title: StringFilter
+}
+
+input SubtaskWhereUniqueInput {
+  AND: [SubtaskWhereInput!]
+  NOT: [SubtaskWhereInput!]
+  OR: [SubtaskWhereInput!]
+  completed: BoolFilter
+  createdAt: DateTimeFilter
+  description: StringNullableFilter
+  id: String
+  task: TaskRelationFilter
+  taskId: StringFilter
+  title: StringFilter
+}
+
+type Task {
+  _count: TaskCount!
+  completed: Boolean!
+  createdAt: DateTime!
+  description: String
+  dueAt: DateTime
+  id: ID!
+  priority: Int
+  subtasks: [Subtask!]
+  tags: [String!]
+  title: String!
+  user: User!
+  userId: String!
+}
+
+type TaskCount {
+  subtasks: Int!
+}
+
+input TaskCreateManyUserInput {
+  completed: Boolean
+  createdAt: DateTime
+  description: String
+  dueAt: DateTime
+  id: String
+  priority: Int
+  tags: TaskCreatetagsInput
+  title: String!
+}
+
+input TaskCreateManyUserInputEnvelope {
+  data: [TaskCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input TaskCreateNestedManyWithoutUserInput {
+  connect: [TaskWhereUniqueInput!]
+  connectOrCreate: [TaskCreateOrConnectWithoutUserInput!]
+  create: [TaskCreateWithoutUserInput!]
+  createMany: TaskCreateManyUserInputEnvelope
+}
+
+input TaskCreateOrConnectWithoutUserInput {
+  create: TaskCreateWithoutUserInput!
+  where: TaskWhereUniqueInput!
+}
+
+input TaskCreateWithoutUserInput {
+  completed: Boolean
+  createdAt: DateTime
+  description: String
+  dueAt: DateTime
+  id: String
+  priority: Int
+  subtasks: SubtaskCreateNestedManyWithoutTaskInput
+  tags: TaskCreatetagsInput
+  title: String!
+}
+
+input TaskCreatetagsInput {
+  set: [String!]!
+}
+
+input TaskListRelationFilter {
+  every: TaskWhereInput
+  none: TaskWhereInput
+  some: TaskWhereInput
+}
+
+input TaskRelationFilter {
+  is: TaskWhereInput
+  isNot: TaskWhereInput
+}
+
+input TaskWhereInput {
+  AND: [TaskWhereInput!]
+  NOT: [TaskWhereInput!]
+  OR: [TaskWhereInput!]
+  completed: BoolFilter
+  createdAt: DateTimeFilter
+  description: StringNullableFilter
+  dueAt: DateTimeNullableFilter
+  id: StringFilter
+  priority: IntNullableFilter
+  subtasks: SubtaskListRelationFilter
+  tags: StringNullableListFilter
+  title: StringFilter
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+input TaskWhereUniqueInput {
+  AND: [TaskWhereInput!]
+  NOT: [TaskWhereInput!]
+  OR: [TaskWhereInput!]
+  completed: BoolFilter
+  createdAt: DateTimeFilter
+  description: StringNullableFilter
+  dueAt: DateTimeNullableFilter
+  id: String
+  priority: IntNullableFilter
+  subtasks: SubtaskListRelationFilter
+  tags: StringNullableListFilter
+  title: StringFilter
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+type User {
+  _count: UserCount!
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  name: String!
+  tasks: [Task!]
+  updatedAt: DateTime!
+}
+
+type UserCount {
+  tasks: Int!
+}
+
+input UserCreateInput {
+  createdAt: DateTime
+  email: String!
+  id: String
+  name: String!
+  tasks: TaskCreateNestedManyWithoutUserInput
+  updatedAt: DateTime
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  createdAt: DateTimeFilter
+  email: StringFilter
+  id: StringFilter
+  name: StringFilter
+  tasks: TaskListRelationFilter
+  updatedAt: DateTimeFilter
+}
+
+input UserWhereUniqueInput {
+  AND: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  createdAt: DateTimeFilter
+  email: String
+  id: String
+  name: StringFilter
+  tasks: TaskListRelationFilter
+  updatedAt: DateTimeFilter
+}
