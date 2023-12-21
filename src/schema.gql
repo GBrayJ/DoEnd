@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
 input BoolFilter {
   equals: Boolean
   not: NestedBoolFilter
@@ -11,6 +15,10 @@ input BoolFilter {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
 
 input DateTimeFilter {
   equals: DateTime
@@ -47,6 +55,8 @@ input IntNullableFilter {
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
 input NestedBoolFilter {
@@ -115,6 +125,22 @@ input NestedStringNullableFilter {
   startsWith: String
 }
 
+input NullableDateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input NullableIntFieldUpdateOperationsInput {
+  decrement: Int
+  divide: Int
+  increment: Int
+  multiply: Int
+  set: Int
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+}
+
 type Query {
   user(where: UserWhereUniqueInput!): User!
 }
@@ -122,6 +148,10 @@ type Query {
 enum QueryMode {
   default
   insensitive
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
 }
 
 input StringFilter {
@@ -209,6 +239,64 @@ input SubtaskListRelationFilter {
   every: SubtaskWhereInput
   none: SubtaskWhereInput
   some: SubtaskWhereInput
+}
+
+input SubtaskScalarWhereInput {
+  AND: [SubtaskScalarWhereInput!]
+  NOT: [SubtaskScalarWhereInput!]
+  OR: [SubtaskScalarWhereInput!]
+  completed: BoolFilter
+  createdAt: DateTimeFilter
+  description: StringNullableFilter
+  id: StringFilter
+  taskId: StringFilter
+  title: StringFilter
+}
+
+input SubtaskUpdateManyMutationInput {
+  completed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input SubtaskUpdateManyWithWhereWithoutTaskInput {
+  data: SubtaskUpdateManyMutationInput!
+  where: SubtaskScalarWhereInput!
+}
+
+input SubtaskUpdateManyWithoutTaskNestedInput {
+  connect: [SubtaskWhereUniqueInput!]
+  connectOrCreate: [SubtaskCreateOrConnectWithoutTaskInput!]
+  create: [SubtaskCreateWithoutTaskInput!]
+  createMany: SubtaskCreateManyTaskInputEnvelope
+  delete: [SubtaskWhereUniqueInput!]
+  deleteMany: [SubtaskScalarWhereInput!]
+  disconnect: [SubtaskWhereUniqueInput!]
+  set: [SubtaskWhereUniqueInput!]
+  update: [SubtaskUpdateWithWhereUniqueWithoutTaskInput!]
+  updateMany: [SubtaskUpdateManyWithWhereWithoutTaskInput!]
+  upsert: [SubtaskUpsertWithWhereUniqueWithoutTaskInput!]
+}
+
+input SubtaskUpdateWithWhereUniqueWithoutTaskInput {
+  data: SubtaskUpdateWithoutTaskInput!
+  where: SubtaskWhereUniqueInput!
+}
+
+input SubtaskUpdateWithoutTaskInput {
+  completed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input SubtaskUpsertWithWhereUniqueWithoutTaskInput {
+  create: SubtaskCreateWithoutTaskInput!
+  update: SubtaskUpdateWithoutTaskInput!
+  where: SubtaskWhereUniqueInput!
 }
 
 input SubtaskWhereInput {
@@ -311,6 +399,79 @@ input TaskRelationFilter {
   isNot: TaskWhereInput
 }
 
+input TaskScalarWhereInput {
+  AND: [TaskScalarWhereInput!]
+  NOT: [TaskScalarWhereInput!]
+  OR: [TaskScalarWhereInput!]
+  completed: BoolFilter
+  createdAt: DateTimeFilter
+  description: StringNullableFilter
+  dueAt: DateTimeNullableFilter
+  id: StringFilter
+  priority: IntNullableFilter
+  tags: StringNullableListFilter
+  title: StringFilter
+  userId: StringFilter
+}
+
+input TaskUpdateManyMutationInput {
+  completed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  dueAt: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  priority: NullableIntFieldUpdateOperationsInput
+  tags: TaskUpdatetagsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input TaskUpdateManyWithWhereWithoutUserInput {
+  data: TaskUpdateManyMutationInput!
+  where: TaskScalarWhereInput!
+}
+
+input TaskUpdateManyWithoutUserNestedInput {
+  connect: [TaskWhereUniqueInput!]
+  connectOrCreate: [TaskCreateOrConnectWithoutUserInput!]
+  create: [TaskCreateWithoutUserInput!]
+  createMany: TaskCreateManyUserInputEnvelope
+  delete: [TaskWhereUniqueInput!]
+  deleteMany: [TaskScalarWhereInput!]
+  disconnect: [TaskWhereUniqueInput!]
+  set: [TaskWhereUniqueInput!]
+  update: [TaskUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [TaskUpdateManyWithWhereWithoutUserInput!]
+  upsert: [TaskUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input TaskUpdateWithWhereUniqueWithoutUserInput {
+  data: TaskUpdateWithoutUserInput!
+  where: TaskWhereUniqueInput!
+}
+
+input TaskUpdateWithoutUserInput {
+  completed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  dueAt: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  priority: NullableIntFieldUpdateOperationsInput
+  subtasks: SubtaskUpdateManyWithoutTaskNestedInput
+  tags: TaskUpdatetagsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input TaskUpdatetagsInput {
+  push: [String!]
+  set: [String!]
+}
+
+input TaskUpsertWithWhereUniqueWithoutUserInput {
+  create: TaskCreateWithoutUserInput!
+  update: TaskUpdateWithoutUserInput!
+  where: TaskWhereUniqueInput!
+}
+
 input TaskWhereInput {
   AND: [TaskWhereInput!]
   NOT: [TaskWhereInput!]
@@ -371,6 +532,15 @@ input UserCreateInput {
 input UserRelationFilter {
   is: UserWhereInput
   isNot: UserWhereInput
+}
+
+input UserUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  tasks: TaskUpdateManyWithoutUserNestedInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input UserWhereInput {
