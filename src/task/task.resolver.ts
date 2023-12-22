@@ -9,12 +9,15 @@ import { FindManyTaskArgs } from '../generated/task/find-many-task.args';
 import { UserService } from '../user/user.service';
 import { User } from '../generated/user/user.model';
 import { Logger } from "@nestjs/common";
+import { Subtask } from "../generated/subtask/subtask.model";
+import { SubtaskService } from "../subtask/subtask.service";
 
 @Resolver(() => Task)
 export class TaskResolver {
   constructor(
     private taskService: TaskService,
     private userService: UserService,
+    private subtaskService: SubtaskService,
   ) {}
 
   @Query(() => Task)
@@ -49,9 +52,16 @@ export class TaskResolver {
     );
   }
 
-  @ResolveField()
+  @ResolveField(() => [User])
   async user(@Parent() task: Task): Promise<User> {
-    Logger.log(`User Id: ${task.userId}`);
     return this.userService.findOne({ id: task.userId });
+  }
+  @ResolveField(() => [Subtask])
+  async subtasks(@Parent() task: Task): Promise<Subtask[]> {
+    return this.subtaskService.findMany({
+      where: {
+        taskId: task.id,
+      },
+    });
   }
 }

@@ -54,10 +54,13 @@ input IntNullableFilter {
 }
 
 type Mutation {
+  createSubtask(data: SubtaskCreateInput!): Subtask!
   createTask(data: TaskCreateInput!): Task!
   createUser(data: UserCreateInput!): User!
+  deleteSubtask(where: SubtaskWhereUniqueInput!): Subtask!
   deleteTask(where: TaskWhereUniqueInput!): Task!
   deleteUser(where: UserWhereUniqueInput!): User!
+  updateSubtask(data: SubtaskUpdateInput!, where: SubtaskWhereUniqueInput!): Subtask!
   updateTask(data: TaskUpdateInput!, where: TaskWhereUniqueInput!): Task!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
@@ -150,9 +153,12 @@ enum NullsOrder {
 }
 
 type Query {
+  subtask(where: SubtaskWhereUniqueInput!): Subtask!
+  subtasks(cursor: SubtaskWhereUniqueInput, distinct: [SubtaskScalarFieldEnum!], orderBy: [SubtaskOrderByWithRelationInput!], skip: Int, take: Int, where: SubtaskWhereInput): [Subtask!]!
   task(where: TaskWhereUniqueInput!): Task!
   tasks(cursor: TaskWhereUniqueInput, distinct: [TaskScalarFieldEnum!], orderBy: [TaskOrderByWithRelationInput!], skip: Int, take: Int, where: TaskWhereInput): [Task!]!
   user(where: UserWhereUniqueInput!): User!
+  users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
 
 enum QueryMode {
@@ -222,6 +228,15 @@ type Subtask {
   title: String!
 }
 
+input SubtaskCreateInput {
+  completed: Boolean
+  createdAt: DateTime
+  description: String
+  id: String
+  task: TaskCreateNestedOneWithoutSubtasksInput!
+  title: String!
+}
+
 input SubtaskCreateManyTaskInput {
   completed: Boolean
   createdAt: DateTime
@@ -265,6 +280,25 @@ input SubtaskOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
+input SubtaskOrderByWithRelationInput {
+  completed: SortOrder
+  createdAt: SortOrder
+  description: SortOrderInput
+  id: SortOrder
+  task: TaskOrderByWithRelationInput
+  taskId: SortOrder
+  title: SortOrder
+}
+
+enum SubtaskScalarFieldEnum {
+  completed
+  createdAt
+  description
+  id
+  taskId
+  title
+}
+
 input SubtaskScalarWhereInput {
   AND: [SubtaskScalarWhereInput!]
   NOT: [SubtaskScalarWhereInput!]
@@ -275,6 +309,15 @@ input SubtaskScalarWhereInput {
   id: StringFilter
   taskId: StringFilter
   title: StringFilter
+}
+
+input SubtaskUpdateInput {
+  completed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  task: TaskUpdateOneRequiredWithoutSubtasksNestedInput
+  title: StringFieldUpdateOperationsInput
 }
 
 input SubtaskUpdateManyMutationInput {
@@ -404,9 +447,32 @@ input TaskCreateNestedManyWithoutUserInput {
   createMany: TaskCreateManyUserInputEnvelope
 }
 
+input TaskCreateNestedOneWithoutSubtasksInput {
+  connect: TaskWhereUniqueInput
+  connectOrCreate: TaskCreateOrConnectWithoutSubtasksInput
+  create: TaskCreateWithoutSubtasksInput
+}
+
+input TaskCreateOrConnectWithoutSubtasksInput {
+  create: TaskCreateWithoutSubtasksInput!
+  where: TaskWhereUniqueInput!
+}
+
 input TaskCreateOrConnectWithoutUserInput {
   create: TaskCreateWithoutUserInput!
   where: TaskWhereUniqueInput!
+}
+
+input TaskCreateWithoutSubtasksInput {
+  completed: Boolean
+  createdAt: DateTime
+  description: String
+  dueAt: DateTime
+  id: String
+  priority: Int
+  tags: TaskCreatetagsInput
+  title: String!
+  user: UserCreateNestedOneWithoutTasksInput!
 }
 
 input TaskCreateWithoutUserInput {
@@ -524,9 +590,34 @@ input TaskUpdateManyWithoutUserNestedInput {
   upsert: [TaskUpsertWithWhereUniqueWithoutUserInput!]
 }
 
+input TaskUpdateOneRequiredWithoutSubtasksNestedInput {
+  connect: TaskWhereUniqueInput
+  connectOrCreate: TaskCreateOrConnectWithoutSubtasksInput
+  create: TaskCreateWithoutSubtasksInput
+  update: TaskUpdateToOneWithWhereWithoutSubtasksInput
+  upsert: TaskUpsertWithoutSubtasksInput
+}
+
+input TaskUpdateToOneWithWhereWithoutSubtasksInput {
+  data: TaskUpdateWithoutSubtasksInput!
+  where: TaskWhereInput
+}
+
 input TaskUpdateWithWhereUniqueWithoutUserInput {
   data: TaskUpdateWithoutUserInput!
   where: TaskWhereUniqueInput!
+}
+
+input TaskUpdateWithoutSubtasksInput {
+  completed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  dueAt: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  priority: NullableIntFieldUpdateOperationsInput
+  tags: TaskUpdatetagsInput
+  title: StringFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutTasksNestedInput
 }
 
 input TaskUpdateWithoutUserInput {
@@ -550,6 +641,12 @@ input TaskUpsertWithWhereUniqueWithoutUserInput {
   create: TaskCreateWithoutUserInput!
   update: TaskUpdateWithoutUserInput!
   where: TaskWhereUniqueInput!
+}
+
+input TaskUpsertWithoutSubtasksInput {
+  create: TaskCreateWithoutSubtasksInput!
+  update: TaskUpdateWithoutSubtasksInput!
+  where: TaskWhereInput
 }
 
 input TaskWhereInput {
@@ -640,6 +737,14 @@ input UserOrderByWithRelationInput {
 input UserRelationFilter {
   is: UserWhereInput
   isNot: UserWhereInput
+}
+
+enum UserScalarFieldEnum {
+  createdAt
+  email
+  id
+  name
+  updatedAt
 }
 
 input UserUpdateInput {
