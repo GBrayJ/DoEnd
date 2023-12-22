@@ -5,6 +5,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { UserResolver } from './user/user.resolver';
+import { TaskService } from './task/task.service';
+import { TaskResolver } from './task/task.resolver';
 
 @Module({
   imports: [
@@ -17,6 +19,12 @@ import { UserResolver } from './user/user.resolver';
     }),
   ],
   controllers: [],
-  providers: [PrismaService, UserService, UserResolver],
+  providers: [
+    PrismaService,
+    UserService,
+    UserResolver,
+    TaskService,
+    TaskResolver,
+  ],
 })
 export class AppModule {}
