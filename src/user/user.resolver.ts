@@ -1,14 +1,16 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from "@nestjs/graphql";
 import { UserService } from './user.service';
 import { User } from '../generated/user/user.model';
 import { FindUniqueUserArgs } from '../generated/user/find-unique-user.args';
 import { CreateOneUserArgs } from '../generated/user/create-one-user.args';
 import { DeleteOneUserArgs } from '../generated/user/delete-one-user.args';
 import { UpdateOneUserArgs } from '../generated/user/update-one-user.args';
+import { Task } from "../generated/task/task.model";
+import { TaskService } from "../task/task.service";
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private taskService: TaskService) {}
 
   @Query(() => User)
   async user(@Args() findUniqueUserArgs: FindUniqueUserArgs): Promise<User> {
@@ -35,5 +37,13 @@ export class UserResolver {
       updateOneUserArgs.data,
       updateOneUserArgs.where,
     );
+  }
+
+  @ResolveField()
+  async tasks(@Parent() user: User): Promise<Task[]> {
+    return this.taskService.findMany({ where: {
+        userId: user.id,
+      },
+    });
   }
 }
