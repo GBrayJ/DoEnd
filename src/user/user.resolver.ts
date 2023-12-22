@@ -14,6 +14,7 @@ import { DeleteOneUserArgs } from '../generated/user/delete-one-user.args';
 import { UpdateOneUserArgs } from '../generated/user/update-one-user.args';
 import { Task } from '../generated/task/task.model';
 import { TaskService } from '../task/task.service';
+import { FindManyUserArgs } from '../generated/user/find-many-user.args';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -25,6 +26,10 @@ export class UserResolver {
   @Query(() => User)
   async user(@Args() findUniqueUserArgs: FindUniqueUserArgs): Promise<User> {
     return this.userService.findOne(findUniqueUserArgs.where);
+  }
+  @Query(() => [User])
+  async users(@Args() findManyUserArgs: FindManyUserArgs): Promise<User[]> {
+    return this.userService.findMany(findManyUserArgs);
   }
 
   @Mutation(() => User)
