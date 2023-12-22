@@ -7,6 +7,8 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { UserResolver } from './user/user.resolver';
 import { TaskService } from './task/task.service';
 import { TaskResolver } from './task/task.resolver';
+import { SubtaskResolver } from './subtask/subtask.resolver';
+import { SubtaskService } from './subtask/subtask.service';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { TaskResolver } from './task/task.resolver';
     UserResolver,
     TaskService,
     TaskResolver,
+    SubtaskResolver,
+    SubtaskService,
   ],
 })
 export class AppModule {}
