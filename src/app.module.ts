@@ -18,6 +18,7 @@ import { SubtaskService } from './subtask/subtask.service';
       sortSchema: true,
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      introspection: true,
     }),
   ],
   controllers: [],
